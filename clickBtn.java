@@ -14,7 +14,7 @@ class clickBtn{
 
         //button Yakin
         el_2 = webUI.verifyElement(btnYakin)
-        if (el_1 == true) {
+        if (el_2 == true) {
             webUI.click(btnYakin)
             println("click button successfully")
         } else {
