@@ -1,5 +1,5 @@
 class popUpTrx {
-    public void() {
+    public void popUpTrx() {
 
         //element 
         word1 = element1;
