@@ -1,0 +1,176 @@
+{
+	"info": {
+		"_postman_id": "92061798-8eb0-42cf-87bf-52d36d2f7fde",
+		"name": "Flip pretest",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get Request",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const body = pm.response.json();\r",
+							"\r",
+							"/**\r",
+							" * To Validation Response Code\r",
+							" */\r",
+							"pm.test('TC1 - Response Code Status', function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"/**\r",
+							" * To Validation Data Type on Response Body\r",
+							" */\r",
+							"pm.test('TC2 - Validation data type on response body', function(){\r",
+							"    \r",
+							"    pm.expect(body.data).to.be.an('object');\r",
+							"    pm.expect(body.data.id).to.be.a('number');\r",
+							"    pm.expect(body.data.email).to.be.a('string');\r",
+							"    pm.expect(body.data.first_name).to.be.a('string');\r",
+							"    pm.expect(body.data.last_name).to.be.a('string');\r",
+							"    pm.expect(body.data.avatar).to.be.a('string');\r",
+							"\r",
+							"    //Support\r",
+							"    pm.expect(body.support).to.be.an('object');\r",
+							"    pm.expect(body.support.url).to.be.a('string');\r",
+							"    pm.expect(body.support.text).to.be.a('string');\r",
+							"});\r",
+							"\r",
+							"/**\r",
+							" * To Validation Value on Response Body\r",
+							" */\r",
+							"pm.test('TC3 - Value check on response body', function(){\r",
+							"\r",
+							"    pm.expect(body.data.id).eql(2);\r",
+							"    pm.expect(body.data.email).eql('janet.weaver@reqres.in');\r",
+							"    pm.expect(body.data.first_name).eql('Janet');\r",
+							"    pm.expect(body.data.last_name).eql('Weaver');\r",
+							"    pm.expect(body.data.avatar).eql('https://reqres.in/img/faces/2-image.jpg');\r",
+							"});\r",
+							"\r",
+							"/**\r",
+							" * Negative Case:\r",
+							" * User not found\r",
+							" */\r",
+							"pm.test('TC4 - User Not Found',function(){\r",
+							"\r",
+							"var baseURL = 'https://reqres.in/api/users?page=1&id=9099'\r",
+							"var setting = {\r",
+							"  url: baseURL,\r",
+							"  method: 'GET',\r",
+							"  header: {\r",
+							"      \"Content-Type\": \"application/json\"\r",
+							"  }\r",
+							"}\r",
+							"pm.sendRequest(setting, (err, response) => {\r",
+							"\r",
+							"    var respCode = response.code\r",
+							"\r",
+							"        if(respCode == 404){\r",
+							"            console.info(\"Response Code - Passed\")\r",
+							"            console.log(respCode)\r",
+							"        } else {\r",
+							"            console.error(\"2. Error, Response Code Not Passed\")\r",
+							"            console.log(respCode)\r",
+							"        }\r",
+							"    });\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://reqres.in/api/users?page=1&id=2",
+					"protocol": "https",
+					"host": [
+						"reqres",
+						"in"
+					],
+					"path": [
+						"api",
+						"users"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "1"
+						},
+						{
+							"key": "id",
+							"value": "2"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post Request",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const body = pm.response.json();\r",
+							"\r",
+							"/**\r",
+							" * To Validation Response Code\r",
+							" */\r",
+							"pm.test('TC1 - Response Code Status', function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"/**\r",
+							" * To Validation Data Type on Response Body\r",
+							" */\r",
+							"pm.test('TC2 - Validation data type on response body', function(){\r",
+							"    \r",
+							"    pm.expect(body.name).to.be.a('string');\r",
+							"    pm.expect(body.job).to.be.a('string');\r",
+							"    pm.expect(body.id).to.be.a('string');\r",
+							"    pm.expect(body.createdAt).to.be.a('string');\r",
+							"\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Miko\",\r\n    \"job\": \"Testing\",\r\n    \"id\": \"008\",\r\n    \"createdAt\": \"2021-08-02T12:38:02.848Z\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://reqres.in/api/user",
+					"protocol": "https",
+					"host": [
+						"reqres",
+						"in"
+					],
+					"path": [
+						"api",
+						"user"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
